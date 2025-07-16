@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { ThemeProvider } from "next-themes";
+import { EnterpriseThemeProvider } from "@/contexts/enterprise-theme-context";
+import { DynamicThemeProvider } from "@/components/theme/dynamic-theme-provider";
 import "./globals.css";
-import { ThemeProvider } from "../components/theme-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,10 +32,26 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className} suppressHydrationWarning>
-        <ThemeProvider userRole="admin">
-          <div id="app-root" className="min-h-screen bg-neutral-50">
-            {children}
-          </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem={true}
+          disableTransitionOnChange={false}
+        >
+          <EnterpriseThemeProvider
+            tenantId="global-tenant"
+            userId="global-user"
+            userRole="admin"
+          >
+            <DynamicThemeProvider>
+              <div
+                id="app-root"
+                className="min-h-screen bg-theme-background text-theme-text transition-all duration-300"
+              >
+                {children}
+              </div>
+            </DynamicThemeProvider>
+          </EnterpriseThemeProvider>
         </ThemeProvider>
       </body>
     </html>

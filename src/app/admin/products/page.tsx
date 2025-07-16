@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { ProductsTable } from "@/components/admin/products/products-table";
-import { ProductFilters } from "@/components/admin/products/product-filters";
-import { ProductStats } from "@/components/admin/products/product-stats";
+
 import { Plus, Download, Upload, Filter } from "lucide-react";
+import { ProductStats } from "@/components/admin/products/product-stats";
+import { ProductFilters } from "@/components/admin/products/product-filters";
+import { ProductsTable } from "@/components/admin/products/products-table";
 
 export default function ProductsPage() {
   const [showFilters, setShowFilters] = useState(false);

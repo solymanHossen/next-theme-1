@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Sidebar } from "@/components/admin/sidebar";
 import { Header } from "@/components/admin/header";
-import { ThemeProvider } from "@/components/theme-provider";
+import { SimpleThemeProvider } from "@/components/theme-provider-simple";
 
 export default function AdminLayout({
   children,
@@ -13,7 +13,12 @@ export default function AdminLayout({
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <ThemeProvider>
+    <SimpleThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
       <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
         {/* Sidebar */}
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
@@ -35,6 +40,6 @@ export default function AdminLayout({
           />
         )}
       </div>
-    </ThemeProvider>
+    </SimpleThemeProvider>
   );
 }

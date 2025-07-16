@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Settings, Palette, Bell, Shield, Users } from "lucide-react";
 
 import { AdminThemeSettings } from "./admin-theme-settings";
@@ -66,7 +67,22 @@ const tabs: Tab[] = [
 ];
 
 export function SettingsTabs() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState("general");
+
+  // Sync with URL parameters
+  useEffect(() => {
+    const tab = searchParams.get("tab");
+    if (tab && tabs.find((t) => t.id === tab)) {
+      setActiveTab(tab);
+    }
+  }, [searchParams]);
+
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId);
+    router.push(`/admin/settings?tab=${tabId}`, { scroll: false });
+  };
 
   const ActiveComponent =
     tabs.find((tab) => tab.id === activeTab)?.component || GeneralSettings;
@@ -82,7 +98,7 @@ export function SettingsTabs() {
               return (
                 <button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id)}
+                  onClick={() => handleTabChange(tab.id)}
                   className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors ${
                     activeTab === tab.id
                       ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"

@@ -2,9 +2,10 @@
 
 import React, { useState } from "react";
 import { CustomerAnalytics } from "@/components/admin/analytics/customer-analytics";
+
+import { CalendarDays, Download, Filter } from "lucide-react";
 import { SalesAnalytics } from "@/components/admin/analytics/sales-analytics";
 import { ProductAnalytics } from "@/components/admin/analytics/product-analytics";
-import { CalendarDays, Download, Filter } from "lucide-react";
 
 export default function AnalyticsPage() {
   const [showFilters, setShowFilters] = useState(false);
